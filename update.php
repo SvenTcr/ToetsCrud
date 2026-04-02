@@ -47,6 +47,7 @@
     <input type="text" id="werelddeel" name="werelddeel" required value="<?php echo $row['werelddeel']; ?>"><br>
 
     <input type="submit" name="btn_wzg" value="Wijzig">
+
   </form>
   <br><br>
   <a href='index.php'>Home</a>
