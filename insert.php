@@ -1,8 +1,8 @@
 <?php
     // functie: formulier en database insert fiets
-    // auteur: Vul hier je naam in
+    // auteur: Sven Boender
 
-    echo "<h1>Insert Bier</h1>";
+    echo "<h1>Insert Bestemming</h1>";
 
     require_once('functions.php');
 	 
@@ -11,9 +11,9 @@
 
         // test of insert gelukt is
         if(insertRecord($_POST) == true){
-            echo "<script>alert('Bier is toegevoegd')</script>";
+            echo "<script>alert('Bestemming is toegevoegd')</script>";
         } else {
-            echo '<script>alert("Bier is NIET toegevoegd")</script>';
+            echo '<script>alert("Bestemming is NIET toegevoegd")</script>';
         }
     }
 ?>
@@ -21,28 +21,14 @@
     <body>
         <form method="post">
 
-        <label for="naam">Naam:</label>
-        <input type="text" id="naam" name="naam" required><br>
+        <label for="plaats">Plaats:</label>
+        <input type="text" id="plaats" name="plaats" required><br>
 
-        <label for="soort">Soort:</label>
-        <input type="text" id="soort" name="soort" required><br>
+        <label for="land">Land:</label>
+        <input type="text" id="land" name="land" required><br>
 
-        <label for="stijl">Stijl:</label>
-        <input type="text" id="stijl" name="stijl" required><br>
-
-        <label for="alcohol">Alcohol:</label>
-        <input type="number" id="alcohol" name="alcohol" required><br>
-
-        <!-- Dropdown menu -->
- <label for="brouwcode">Brouwer:</label>
- <select id="brouwcode" name="brouwcode" required>
-   <?php
-     $brouwers = getBrouwers();
-     foreach ($brouwers as $brouwer) {
-       $selected = ($brouwer['brouwcode'] == $row['brouwcode']) ? 'selected' : '';
-       echo "<option value='{$brouwer['brouwcode']}' $selected>{$brouwer['naam']}</option>";
-     }
-   ?>
+        <label for="werelddeel">Werelddeel:</label>
+        <input type="text" id="werelddeel" name="werelddeel" required><br>
 
         <input type="submit" name="btn_ins" value="Insert">
         </form>

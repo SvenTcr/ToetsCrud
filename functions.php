@@ -28,13 +28,13 @@ include_once "config.php";
 
     // Menu-item   insert
     $txt = "
-    <h1>Crud Bieren</h1>
+    <h1>Crud Reizen</h1>
     <nav>
-		<a href='insert.php'>Toevoegen nieuwe bier</a>
+		<a href='insert.php'>Toevoegen van nieuwe bestemming</a>
     </nav><br>";
     echo $txt;
 
-    // Haal alle bieren record uit de tabel 
+    // Haal alle bestemmingen uit de tabel 
     $result = getData(CRUD_TABLE);
 
     //print table
@@ -66,9 +66,9 @@ include_once "config.php";
     $conn = connectDb();
 
     // Select data uit de opgegeven table methode prepare
-    $sql = "SELECT * FROM " . CRUD_TABLE . " WHERE biercode = :biercode";
+    $sql = "SELECT * FROM " . CRUD_TABLE . " WHERE idbestemming = :idbestemming";
     $query = $conn->prepare($sql);
-    $query->execute([':biercode'=>$id]);
+    $query->execute([':idbestemming'=>$id]);
     $result = $query->fetch();
 
     return $result;
@@ -104,14 +104,14 @@ function printCrudTabel($result){
         
         // Wijzig knopje
         $table .= "<td>
-            <form method='post' action='update.php?biercode=$row[biercode]' >       
-                <button>Wzg</button>	 
+            <form method='post' action='update.php?idbestemming=$row[idbestemming]' >       
+                <button>Wijzigen</button>	 
             </form></td>";
 
         // Delete knopje
         $table .= "<td>
-            <form method='post' action='delete.php?biercode=$row[biercode]' >       
-                <button>Verwijder</button>	 
+            <form method='post' action='delete.php?idbestemming=$row[idbestemming]' >       
+                <button>Verwijderen</button>	 
             </form></td>";
 
         $table .= "</tr>";
@@ -130,24 +130,20 @@ function updateRecord($row){
     // Maak een query 
     $sql = "UPDATE " . CRUD_TABLE .
     " SET 
-        naam = :naam, 
-        soort = :soort, 
-        stijl = :stijl, 
-        alcohol = :alcohol,
-        brouwcode = :brouwcode
-    WHERE biercode = :biercode
+        plaats = :plaats, 
+        land = :land, 
+        werelddeel = :werelddeel, 
+    WHERE idbestemming = :idbestemming
     ";
 
     // Prepare query
     $stmt = $conn->prepare($sql);
     // Uitvoeren
     $stmt->execute([
-        ':naam'=>$row['naam'],
-        ':soort'=>$row['soort'],
-        ':stijl'=>$row['stijl'],
-        ':alcohol'=>$row['alcohol'],
-        ':brouwcode'=>$row['brouwcode'],
-        ':biercode'=>$row['biercode']
+        ':plaats'=>$row['plaats'],
+        ':land'=>$row['land'],
+        ':werelddeel'=>$row['werelddeel'],
+        ':idbestemming'=>$row['idbestemming']
     ]);
 
     // test of database actie is gelukt
@@ -161,18 +157,17 @@ function insertRecord($post){
 
     // Maak een query 
     $sql = "
-        INSERT INTO " . CRUD_TABLE . " (naam, soort, stijl, alcohol)
-        VALUES (:naam, :soort, :stijl, :alcohol) 
+        INSERT INTO " . CRUD_TABLE . " (plaats, land, werelddeel)
+        VALUES (:plaats, :land, :werelddeel) 
     ";
 
     // Prepare query
     $stmt = $conn->prepare($sql);
     // Uitvoeren
     $stmt->execute([
-        ':naam'=>$_POST['naam'],
-        ':soort'=>$_POST['soort'],
-        ':stijl'=>$_POST['stijl'],
-        ':alcohol'=>$_POST['alcohol']
+        ':plaats'=>$_POST['plaats'],
+        ':land'=>$_POST['land'],
+        ':werelddeel'=>$_POST['werelddeel']
     ]);
 
     
@@ -189,28 +184,17 @@ function deleteRecord($id){
     // Maak een query 
     $sql = "
     DELETE FROM " . CRUD_TABLE . 
-    " WHERE biercode = :biercode";
+    " WHERE idbestemming = :idbestemming";
 
     // Prepare query
     $stmt = $conn->prepare($sql);
 
     // Uitvoeren
     $stmt->execute([
-    ':biercode'=>$_GET['biercode']
+    ':idbestemming'=>$_GET['idbestemming']
     ]);
 
     // test of database actie is gelukt
     $retVal = ($stmt->rowCount() == 1) ? true : false ;
     return $retVal;
 }
-
-function getBrouwers(){
-    // Connect database
-    $conn = connectDb();
-
-    // Select data uit de opgegeven table methode query
-    $result = $conn->query("SELECT * FROM brouwer")->fetchAll();
-
-    return $result;
-}
-?>

@@ -2,11 +2,11 @@
 // auteur: Sven Boender
 // functie: configuratiebestand
 
-define("DATABASE", "bieren");
+define("DATABASE", "reizen");
 define("SERVERNAME", "localhost");
 define("USERNAME", "root");
 define("PASSWORD", "");
 
-define("CRUD_TABLE", "bier");
+define("CRUD_TABLE", "bestemming");
 
 ?>
